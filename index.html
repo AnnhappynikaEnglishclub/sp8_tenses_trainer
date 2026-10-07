@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spotlight 8 · Module 1 · Tenses Trainer 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg1:#fff6dc; --bg2:#ffe3f0; --bg3:#dff1ff;
+  --ink:#2a2150; --soft:#655e8d;
+  --card:#ffffff; --line:#eadff9; --chip:#f3ecff;
+  --pink:#ff4f8b; --orange:#ff8a1f; --yellow:#ffcf30; --green:#1fb85a;
+  --blue:#2f8cff; --purple:#7c4dff; --teal:#12a99b;
+  --ok:#17b26a; --bad:#ff4d5e;
+  --tip:#fff2bf; --tipbd:#ffb300; --blob:.38;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg1:#1c1445; --bg2:#2b1552; --bg3:#12244d;
+    --ink:#fff5ff; --soft:#cbc2f2;
+    --card:#2b2263; --line:#4b3e97; --chip:#3b307c;
+    --tip:#4a3b12; --tipbd:#ffc93c; --blob:.16;
+  }
+}
+:root[data-theme="dark"]{
+  --bg1:#1c1445; --bg2:#2b1552; --bg3:#12244d;
+  --ink:#fff5ff; --soft:#cbc2f2;
+  --card:#2b2263; --line:#4b3e97; --chip:#3b307c;
+  --tip:#4a3b12; --tipbd:#ffc93c; --blob:.16;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+[hidden]{display:none!important}
+body{
+  margin:0;font-family:'Nunito','Trebuchet MS','Comic Sans MS',system-ui,sans-serif;
+  font-size:17px;line-height:1.45;color:var(--ink);
+  background-color:var(--bg1);
+  background-image:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+  background-attachment:fixed;-webkit-text-size-adjust:100%;
+}
+button,select,input{font-family:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
+
+.blobs{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.blobs i{position:absolute;border-radius:50%;opacity:var(--blob)}
+.blobs i:nth-child(1){width:230px;height:230px;background:#ffcf30;left:-80px;top:14%}
+.blobs i:nth-child(2){width:270px;height:270px;background:#ff8ac0;right:-100px;top:46%}
+.blobs i:nth-child(3){width:210px;height:210px;background:#7fd0ff;left:18%;bottom:-90px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+  background:color-mix(in srgb,var(--card) 90%,transparent);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:3px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:8px 12px}
+.nav{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:800;font-size:15px;padding:7px 13px;border-radius:999px;color:#fff}
+.nav a:nth-child(1){background:var(--purple)}
+.nav a:nth-child(2){background:var(--pink)}
+.nav a:nth-child(3){background:var(--blue)}
+.nav a:nth-child(4){background:var(--green)}
+.nav a:nth-child(5){background:var(--teal)}
+.nav a:nth-child(6){background:#e06a00}
+.score{font-weight:900;background:var(--yellow);color:#4a2a00;border-radius:999px;padding:7px 12px;white-space:nowrap;font-size:15px}
+.snd{border:0;background:var(--chip);border-radius:50%;width:36px;height:36px;font-size:17px;flex:none}
+.prog{height:7px;background:var(--line)}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--orange),var(--yellow));transition:width .45s}
+
+.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:14px 14px 60px}
+
+.hero{position:relative;overflow:hidden;text-align:center;color:#fff;border-radius:32px;padding:24px 16px 20px;
+  background:linear-gradient(135deg,#2f8cff 0%,#7c4dff 52%,#ff4f8b 100%);
+  box-shadow:0 9px 0 rgba(47,140,255,.28),0 22px 40px rgba(124,77,255,.22)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14)}
+.hero::before{width:180px;height:180px;left:-50px;top:-60px}
+.hero::after{width:240px;height:240px;right:-80px;bottom:-110px}
+.hero>*{position:relative}
+.hero .tag{display:inline-block;background:var(--yellow);color:#4a2a00;font-weight:900;font-size:14px;border-radius:999px;padding:6px 15px;transform:rotate(-2deg);box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.hero h1{margin:12px 0 4px;font-size:clamp(34px,10vw,56px);line-height:1.04;font-weight:900;text-shadow:0 4px 0 rgba(0,0,0,.2)}
+.hero p{margin:0 auto;max-width:38ch;font-weight:700;font-size:clamp(15px,4vw,18px)}
+.parade{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin-top:16px}
+.parade span{display:flex;flex-direction:column;align-items:center;font-size:clamp(28px,8.5vw,40px);line-height:1.1;animation:bob 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+.parade small{font-size:11px;font-weight:800;opacity:.95}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+.sec{margin-top:36px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.sec-h .ico{flex:none;width:52px;height:52px;border-radius:18px;display:grid;place-items:center;font-size:28px;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.16)}
+.sec-h h2{margin:0;font-size:clamp(23px,6.5vw,31px);font-weight:900;line-height:1.1}
+.sec-h small{display:block;font-weight:700;color:var(--soft);font-size:14px;margin-top:2px}
+.step{display:flex;align-items:center;gap:10px;margin:30px 0 10px}
+.step .n{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:var(--purple);box-shadow:0 3px 0 rgba(0,0,0,.16)}
+.step h3{margin:0;font-size:clamp(20px,5.4vw,25px);font-weight:900;line-height:1.15}
+.step .badge{margin-left:auto;font-size:12px;font-weight:900;padding:4px 10px;border-radius:999px;color:#fff;white-space:nowrap}
+
+.card{background:var(--card);border-radius:26px;padding:16px;border:3px solid var(--line);box-shadow:0 6px 0 var(--line)}
+.card+.card{margin-top:14px}
+.card h3{margin:0 0 8px;font-size:20px;font-weight:900}
+.card p{margin:.4em 0}
+.stripe-pink{border-top:10px solid var(--pink)}
+.stripe-blue{border-top:10px solid var(--blue)}
+.stripe-green{border-top:10px solid var(--green)}
+.stripe-orange{border-top:10px solid var(--orange)}
+.stripe-purple{border-top:10px solid var(--purple)}
+.stripe-teal{border-top:10px solid var(--teal)}
+.instr{font-weight:800;margin:0 0 10px}
+.instr small{display:block;color:var(--soft);font-weight:700}
+
+.mini{border:0;border-radius:999px;padding:9px 16px;font-weight:900;font-size:15px;color:#fff;background:var(--purple);box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.mini:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.mini.alt{background:var(--chip);color:var(--ink);box-shadow:0 4px 0 var(--line)}
+.big{border:0;border-radius:18px;padding:13px 22px;font-weight:900;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--green),#0fa5a0);box-shadow:0 6px 0 rgba(0,0,0,.2)}
+.big:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+
+/* tense map */
+.map{display:grid;grid-template-columns:62px repeat(4,1fr);gap:6px;text-align:center;font-weight:800;font-size:12px}
+.map .h{color:var(--soft);font-weight:900;align-self:end;padding:2px;line-height:1.15}
+.map .rl{align-self:center;font-weight:900;font-size:13px;text-align:left;color:var(--ink)}
+.map a,.map .na{border-radius:14px;padding:6px 3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:62px;line-height:1.12}
+.map a{background:var(--c);color:#fff;text-decoration:none;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.map a b{font-size:17px}
+.map a:active{transform:translateY(3px)}
+.map .na{border:3px dashed var(--line);color:var(--soft);font-weight:700}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.legend div{border-radius:16px;padding:8px;text-align:center;font-weight:800;font-size:13.5px;line-height:1.25;border:3px solid}
+.legend b{display:block;font-size:16px}
+.legend .l1{border-color:var(--pink);background:color-mix(in srgb,var(--pink) 12%,transparent)}
+.legend .l2{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent)}
+.legend .l3{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,transparent)}
+.how{list-style:none;margin:0;padding:0;counter-reset:st}
+.how li{counter-increment:st;display:flex;gap:12px;align-items:flex-start;padding:6px 0;font-weight:700}
+.how li::before{content:counter(st);flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:var(--purple)}
+.how li:nth-child(2)::before{background:var(--pink)}
+.how li:nth-child(3)::before{background:var(--green)}
+
+/* theory card */
+.th{border-top:10px solid var(--tc)}
+.th-h{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.th-h .tem{font-size:38px;line-height:1}
+.th-h h3{margin:0;font-size:23px;color:var(--tc)}
+.th-h small{display:block;color:var(--soft);font-weight:700}
+.th h4{margin:16px 0 6px;font-size:16px;font-weight:900}
+.tlx svg{width:100%;height:auto;max-width:430px;display:block;margin:4px auto}
+.tlx .ln0{stroke:var(--ink);stroke-width:4;stroke-linecap:round}
+.tlx .ar{fill:var(--ink)}
+.tlx .t{font:800 12px Nunito,'Trebuchet MS',sans-serif;fill:var(--soft)}
+.tlx .tt{font:900 13px Nunito,'Trebuchet MS',sans-serif;fill:var(--ink)}
+.tlx .fl{fill:var(--tc)}
+.tlx .st{stroke:var(--tc);stroke-width:4;fill:none;stroke-linecap:round}
+.tlx .bar{fill:var(--tc);opacity:.85}
+.use{list-style:none;margin:0;padding:0}
+.use li{display:flex;gap:10px;padding:8px 0;border-top:2px dashed var(--line);align-items:flex-start}
+.use li:first-child{border-top:0}
+.use .ue{font-size:24px;flex:none;line-height:1.2}
+.use b{display:block;font-weight:900}
+.use i{display:block;font-style:normal;color:var(--tc);font-weight:800}
+.frm{display:flex;gap:10px;align-items:stretch;margin:8px 0}
+.sg{flex:none;width:34px;border-radius:12px;color:#fff;font-weight:900;display:grid;place-items:center;font-size:19px}
+.sg.p{background:var(--green)}.sg.m{background:var(--bad)}.sg.q{background:var(--orange)}
+.fx{flex:1;min-width:0;background:color-mix(in srgb,var(--tc) 12%,transparent);border:3px solid var(--tc);border-radius:14px;padding:6px 10px}
+.fx b{display:block;font-weight:900;font-size:16.5px}
+.fx i{display:block;font-style:normal;font-weight:700;font-size:15.5px}
+.k{color:var(--tc);font-weight:900}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.chip{border:3px solid var(--line);background:var(--chip);border-radius:999px;padding:5px 12px;font-weight:800;font-size:15px}
+.tip{background:var(--tip);border:3px dashed var(--tipbd);border-radius:20px;padding:11px 14px;margin-top:12px;font-weight:700}
+.tip b{font-weight:900}
+.hl{color:var(--pink);font-weight:900}.hb{color:var(--blue);font-weight:900}.hg{color:var(--green);font-weight:900}
+.scroll{overflow-x:auto}
+table.tb{width:100%;border-collapse:separate;border-spacing:0 5px;font-weight:800;font-size:15.5px}
+table.tb th{background:var(--tc,var(--purple));color:#fff;padding:6px 8px;text-align:left;font-size:14px}
+table.tb th:first-child{border-radius:12px 0 0 12px}table.tb th:last-child{border-radius:0 12px 12px 0}
+table.tb td{background:var(--chip);padding:6px 8px;vertical-align:top}
+table.tb td:first-child{border-radius:12px 0 0 12px}table.tb td:last-child{border-radius:0 12px 12px 0}
+
+/* exercises */
+.num{flex:none;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;font-weight:900;font-size:15px}
+.q{padding:12px 0;border-top:2px dashed var(--line)}
+.qs{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:18.5px;font-weight:800}
+.qsub{margin:4px 0 0 38px;color:var(--soft);font-weight:700;font-size:15.5px}
+.slot{min-width:64px;text-align:center;border-bottom:4px solid var(--orange);font-weight:900;color:var(--soft)}
+.slot.ok{color:var(--ok);border-color:var(--ok)}
+.opts{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 0 38px}
+.opt{border:0;border-radius:16px;padding:10px 16px;font-size:17px;font-weight:900;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2);text-align:left;line-height:1.2}
+.opt:active{transform:translateY(3px)}
+.qo0{background:var(--blue)}.qo1{background:var(--pink)}.qo2{background:var(--orange)}.qo3{background:var(--teal)}
+.opt:disabled{opacity:.45;box-shadow:none}
+.opt.wrong{animation:shake .4s;background:var(--bad)!important}
+.qo.right{background:var(--ok)!important;opacity:1!important;box-shadow:0 5px 0 rgba(0,0,0,.2)!important}
+.q.solved .opt:not(.right){opacity:.35}
+.why{margin:8px 0 0 38px;font-weight:800;color:var(--ok);font-size:15.5px}
+.fb{min-height:24px;margin-top:10px;font-weight:900}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+
+.build{padding:12px 0;border-top:2px dashed var(--line)}
+.build .ru{font-weight:900;margin-bottom:8px}
+.ans{min-height:56px;display:flex;flex-wrap:wrap;gap:8px;padding:8px;border-radius:18px;border:3px dashed var(--purple);background:color-mix(in srgb,var(--purple) 8%,transparent)}
+.ans.done{border-color:var(--ok);border-style:solid;background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.ans.shake{animation:shake .4s;border-color:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;min-height:48px}
+.tile{border:0;border-radius:14px;padding:9px 13px;font-size:18px;font-weight:900;color:#fff;background:var(--orange);box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.ans .tile{background:var(--purple)}
+.ans.done .tile{background:var(--ok)}
+.tile:disabled{cursor:default}
+.tile:active:not(:disabled){transform:translateY(3px)}
+
+.story{font-size:18px;font-weight:700;line-height:1.85;background:var(--chip);border-radius:20px;padding:12px 14px;margin-bottom:6px}
+.gap{display:inline-block;min-width:54px;text-align:center;border-bottom:4px solid var(--orange);font-weight:900;color:var(--soft);padding:0 4px;line-height:1.3}
+.gap.ok{color:var(--ok);border-color:var(--ok)}
+
+.result{text-align:center;color:#fff;border-radius:32px;padding:26px 16px;background:linear-gradient(135deg,#2f8cff,#7c4dff 55%,#ff4f8b);box-shadow:0 9px 0 rgba(124,77,255,.28)}
+.result .stars{font-size:clamp(30px,10vw,46px);letter-spacing:4px}
+.result .num2{font-size:clamp(40px,14vw,68px);font-weight:900;line-height:1.1;text-shadow:0 4px 0 rgba(0,0,0,.2)}
+.result p{font-weight:800;font-size:19px;margin:8px 0 14px}
+
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.cf{position:fixed;width:10px;height:15px;border-radius:3px;z-index:99;pointer-events:none;animation:cf 1.3s ease-out forwards}
+@keyframes cf{
+  35%{transform:translate(var(--dx),var(--dy)) rotate(var(--r))}
+  100%{transform:translate(calc(var(--dx)*1.25),calc(var(--dy) + 460px)) rotate(calc(var(--r)*2));opacity:0}
+}
+@media (max-width:420px){
+  body{font-size:16px}
+  .map{grid-template-columns:54px repeat(4,1fr);gap:5px;font-size:11px}
+  .legend div{font-size:12.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+.nav a:nth-child(7){background:var(--green)}
+.tin{padding:12px 0;border-top:2px dashed var(--line)}
+.tin .qs{font-size:17.5px}
+.trow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:9px 0 0 38px}
+.tinp{flex:1;min-width:170px;max-width:340px;font-size:17px;font-weight:800;padding:9px 13px;border-radius:14px;border:3px solid var(--blue);background:var(--card);color:var(--ink)}
+.tinp.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card))}
+.tinp.no{border-color:var(--bad);animation:shake .4s}
+.tinp.shown{border-color:var(--orange)}
+.tin .why{margin-left:38px}
+.hintb{background:var(--chip);color:var(--ink);box-shadow:0 4px 0 var(--line)}
+.sp{padding:12px 0;border-top:2px dashed var(--line)}
+.sw{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 0 38px}
+.wb{border:3px solid var(--line);background:var(--chip);border-radius:12px;padding:6px 11px;font-weight:900;font-size:16.5px;box-shadow:0 3px 0 var(--line)}
+.wb:active{transform:translateY(2px)}
+.wb.bad{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .4s}
+.wb.hit{background:var(--ok);border-color:var(--ok);color:#fff;text-decoration:line-through}
+.sp .fix{margin:8px 0 0 38px;font-weight:900;color:var(--ok)}
+.story input.gi{width:9.5em;max-width:46vw;font:inherit;font-weight:900;font-size:16px;padding:2px 8px;border:0;border-bottom:4px solid var(--orange);border-radius:8px 8px 0 0;background:var(--card);color:var(--ink)}
+.story input.gi.ok{border-color:var(--ok);color:var(--ok)}
+.story input.gi.no{border-color:var(--bad)}
+.story .bv{color:var(--soft);font-weight:800;font-size:14px}
+.blitz{text-align:center}
+.blitz .clock{font-size:clamp(38px,12vw,58px);font-weight:900;line-height:1.1}
+.blitz .bq{font-size:clamp(19px,5.2vw,23px);font-weight:900;margin:14px 0 4px;min-height:2.6em}
+.blitz .bopts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+.blitz .bcount{font-weight:800;color:var(--soft)}
+.mini-table td,.mini-table th{font-size:14px}
+details.cheat summary{cursor:pointer;font-weight:900;font-size:17px;color:var(--purple)}
+.trow .mini{padding:8px 12px;flex:none}
+.trow{flex-wrap:nowrap}
+.tinp{min-width:0}
+@media (max-width:520px){.trow,.sw,.tin .why,.sp .fix{margin-left:0}.trow{gap:6px}.trow .mini{padding:8px 10px;font-size:14px}}
+</style>
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<header class="top">
+  <div class="top-in">
+    <nav class="nav" aria-label="Разделы">
+      <a href="#warm">🧠 Разминка</a>
+      <a href="#write">✍️ Пиши сам</a>
+      <a href="#pairs">⚖️ Пары</a>
+      <a href="#errors">🔍 Ошибки</a>
+      <a href="#text">📖 Текст</a>
+      <a href="#blitz">⚡ Блиц</a>
+      <a href="#result">🏆 Итог</a>
+    </nav>
+    <div class="score" title="Правильные ответы">⭐ <span id="sc">0 / 0</span></div>
+    <button class="snd" id="snd" type="button" aria-label="Звуки вкл/выкл">🔊</button>
+  </div>
+  <div class="prog"><i id="bar"></i></div>
+</header>
+
+<main class="wrap">
+<section class="hero">
+  <span class="tag">English · 8 класс · Spotlight 8 · Module 1</span>
+  <h1>Tenses Trainer 2 💪</h1>
+  <p>Закрепляем 7 времён: пишем формы сами, сравниваем пары, ищем ошибки и проходим блиц на время</p>
+  <div class="parade" aria-hidden="true">
+    <span style="--i:0">🧠<small>Разминка</small></span>
+    <span style="--i:1">✍️<small>Пиши сам</small></span>
+    <span style="--i:2">⚖️<small>Пары</small></span>
+    <span style="--i:3">🔍<small>Ошибки</small></span>
+    <span style="--i:4">📖<small>Текст</small></span>
+    <span style="--i:5">⚡<small>Блиц</small></span>
+  </div>
+</section>
+
+<section class="sec" id="warm">
+  <div class="sec-h"><div class="ico" style="background:var(--purple)">🧠</div>
+    <div><h2>Разминка · Вспоминаем</h2><small>Формулы, ситуации, слова-подсказки</small></div></div>
+  <div class="card stripe-purple">
+    <details class="cheat"><summary>📋 Шпаргалка (открой, если забыл)</summary>
+      <div class="scroll" style="margin-top:10px"><table class="tb mini-table" style="--tc:var(--purple)"><thead><tr><th>Время</th><th>Формула (+)</th><th>Подсказки</th></tr></thead><tbody id="cheatRows"></tbody></table></div>
+    </details>
+  </div>
+  <div id="warmHost"></div>
+</section>
+
+<section class="sec" id="write">
+  <div class="sec-h"><div class="ico" style="background:var(--blue)">✍️</div>
+    <div><h2>Пиши сам · Open the brackets</h2><small>Теперь без вариантов — набери форму глагола</small></div></div>
+  <div class="card stripe-teal">
+    <p style="margin:0;font-weight:700">⌨️ Пиши только <b>глагол</b> (без подлежащего). Сокращения можно: <b>doesn’t</b> = <b>does not</b>. Нажми <b>Enter</b> или ✔. Не получается? Кнопка 💡 подскажет время, 👀 покажет ответ (без балла).</p>
+  </div>
+  <div id="writeHost"></div>
+</section>
+
+<section class="sec" id="pairs">
+  <div class="sec-h"><div class="ico" style="background:var(--orange)">⚖️</div>
+    <div><h2>Пары · Чем отличаются?</h2><small>Самые частые «спорные» пары времён</small></div></div>
+  <div id="pairsHost"></div>
+</section>
+
+<section class="sec" id="errors">
+  <div class="sec-h"><div class="ico" style="background:var(--pink)">🔍</div>
+    <div><h2>Ошибки · Find and fix</h2><small>Найди ошибку, переведи, задай вопрос</small></div></div>
+  <div id="errHost"></div>
+</section>
+
+<section class="sec" id="text">
+  <div class="sec-h"><div class="ico" style="background:var(--green)">📖</div>
+    <div><h2>Текст · A letter from camp</h2><small>Все времена в одном письме</small></div></div>
+  <div id="textHost"></div>
+</section>
+
+<section class="sec" id="blitz">
+  <div class="sec-h"><div class="ico" style="background:var(--orange)">⚡</div>
+    <div><h2>Блиц · На время</h2><small>12 вопросов подряд. Сможешь быстрее минуты?</small></div></div>
+  <div id="blitzHost"></div>
+</section>
+
+<section class="sec" id="result">
+  <div class="result">
+    <div class="stars" id="stars">☆☆☆☆☆</div>
+    <div class="num2" id="big">0 / 0</div>
+    <p id="rmsg">Выполни задания — и здесь появятся звёзды!</p>
+    <button class="big" type="button" id="again" style="background:linear-gradient(135deg,#ff8a1f,#ff4f8b)">🔄 Пройти заново</button>
+  </div>
+</section>
+</main>
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a};
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- sound ---------- */
+var sfx=true,ac=null;
+function tone(f,d,type,v,when){
+  if(!sfx)return;
+  try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    var o=ac.createOscillator(),g=ac.createGain(),s=ac.currentTime+(when||0);
+    o.type=type||'sine';o.frequency.value=f;
+    g.gain.setValueAtTime(v||.08,s);g.gain.exponentialRampToValueAtTime(.0001,s+d);
+    o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d+.02);
+  }catch(e){}
+}
+function good(){tone(660,.14);tone(880,.2,'sine',.08,.12)}
+function bad(){tone(190,.25,'sawtooth',.05)}
+function win(){tone(523,.12);tone(659,.12,'sine',.08,.11);tone(784,.12,'sine',.08,.22);tone(1046,.25,'sine',.08,.33)}
+$('#snd').onclick=function(){sfx=!sfx;this.textContent=sfx?'🔊':'🔇'};
+
+/* ---------- confetti ---------- */
+var COLS=['#ff4f8b','#ff8a1f','#ffcf30','#1fb85a','#2f8cff','#7c4dff'];
+function confetti(el,n){
+  if(reduce)return;
+  var r=el?el.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+  var x=r.left+r.width/2,y=r.top+r.height/2;n=n||30;
+  for(var i=0;i<n;i++){
+    var p=document.createElement('i');p.className='cf';
+    p.style.left=x+'px';p.style.top=y+'px';p.style.background=COLS[i%COLS.length];
+    p.style.setProperty('--dx',(Math.random()*320-160)+'px');
+    p.style.setProperty('--dy',(-Math.random()*240-40)+'px');
+    p.style.setProperty('--r',(Math.random()*540-270)+'deg');
+    document.body.appendChild(p);
+    (function(q){setTimeout(function(){q.remove()},1400)})(p);
+  }
+}
+function shakeEl(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');setTimeout(function(){el.classList.remove('shake')},450)}
+
+/* ---------- score ---------- */
+var S={got:0,max:0},wonAll=false;
+function reg(n){S.max+=n;renderScore()}
+function pt(n){S.got+=(n||1);renderScore()}
+function renderScore(){
+  $('#sc').textContent=S.got+' / '+S.max;
+  $('#bar').style.width=(S.max?S.got/S.max*100:0)+'%';
+  var r=S.max?S.got/S.max:0;
+  $('#big').textContent=S.got+' / '+S.max;
+  var st=r>=.9?5:r>=.7?4:r>=.5?3:r>=.25?2:r>0?1:0;
+  $('#stars').textContent=new Array(st+1).join('⭐')+new Array(6-st).join('☆');
+  var m='Выполни задания — и здесь появятся звёзды!';
+  if(S.max&&S.got===S.max)m='🏆 Superstar! Времена закреплены на 100%!';
+  else if(r>=.7)m='🎉 Great job! Почти всё получилось!';
+  else if(r>=.4)m='👍 Good! Продолжай — ты на верном пути!';
+  else if(r>0)m='🌱 Good start! Впереди ещё задания.';
+  $('#rmsg').textContent=m;
+  if(S.max&&S.got===S.max&&!wonAll){wonAll=true;win();setTimeout(function(){confetti($('#big'),60)},300)}
+}
+$('#again').onclick=function(){location.reload()};
+
+/* ---------- helpers ---------- */
+var SL='<span class="slot">?</span>';
+function opts(ans,wrong){return shuffle([ans].concat(wrong))}
+function mc(q,ans,wrong,why){return {q:q.replace('___',SL),o:opts(ans,wrong),ans:ans,why:why}}
+function mkCard(host,title,instr,color){
+  var c=document.createElement('div');c.className='card';c.style.borderTop='10px solid '+color;
+  c.innerHTML='<h3>'+title+'</h3>'+(instr?'<p class="instr">'+instr+'</p>':'')+'<div class="qh"></div><div class="fb" aria-live="polite"></div>';
+  host.appendChild(c);
+  return {card:c,body:$('.qh',c),fb:$('.fb',c)};
+}
+
+/* generic multiple-choice */
+function quiz(box,items,doneMsg){
+  var done=0;
+  items.forEach(function(it,i){
+    var q=document.createElement('div');q.className='q';
+    q.innerHTML='<div class="qs"><span class="num">'+(i+1)+'</span><span>'+it.q+'</span></div>'+
+      (it.sub?'<div class="qsub">'+it.sub+'</div>':'')+'<div class="opts"></div><div class="why" hidden></div>';
+    var ob=$('.opts',q);
+    it.o.forEach(function(x,k){
+      var b=document.createElement('button');b.type='button';b.className='opt qo qo'+(k%4);b.textContent=x;
+      b.onclick=function(){
+        if(q.classList.contains('solved'))return;
+        if(x===it.ans){
+          q.classList.add('solved');b.classList.add('right');
+          var s=$('.slot',q);if(s){s.textContent=x;s.classList.add('ok')}
+          if(it.fill){var g=$(it.fill);if(g){g.textContent=x;g.classList.add('ok')}}
+          $$('.opt',q).forEach(function(y){y.disabled=true});
+          var w=$('.why',q);w.hidden=false;w.textContent='✔ '+(it.why||x);
+          pt();done++;good();confetti(b,8);
+          if(done===items.length){box.fb.className='fb ok';box.fb.textContent=doneMsg||'🎉 Тренировка пройдена! Great job!';confetti(box.fb,26)}
+        }else{b.classList.add('wrong');b.disabled=true;bad()}
+      };
+      ob.appendChild(b);
+    });
+    box.body.appendChild(q);
+  });
+  reg(items.length);
+}
+
+/* sentence builder */
+function builder(box,items){
+  items.forEach(function(t){
+    var m=t.en.match(/[.?!]$/),p=m?m[0]:'',core=p?t.en.slice(0,-1):t.en;
+    var words=core.split(' ');
+    var idx=words.map(function(_,k){return k});
+    var order=shuffle(idx);
+    while(order.join()===idx.join())order=shuffle(idx);
+    var st={bank:order.slice(),ans:[],done:false};
+    var b0=document.createElement('div');b0.className='build';
+    b0.innerHTML='<div class="ru">🇷🇺 '+t.ru+'</div><div class="ans"></div><div class="bank"></div><div class="fb"></div><button class="mini alt" type="button">↺ Сначала</button>';
+    var ansEl=$('.ans',b0),bankEl=$('.bank',b0),fb=$('.fb',b0);
+    function tile(k,where){
+      var b=document.createElement('button');b.type='button';b.className='tile';b.textContent=words[k];b.disabled=st.done;
+      b.onclick=function(){
+        if(st.done)return;
+        if(where==='b'){st.bank=st.bank.filter(function(x){return x!==k});st.ans.push(k)}
+        else{st.ans=st.ans.filter(function(x){return x!==k});st.bank.push(k)}
+        fb.textContent='';fb.className='fb';render();check();
+      };
+      return b;
+    }
+    function render(){
+      ansEl.innerHTML='';bankEl.innerHTML='';
+      st.ans.forEach(function(k){ansEl.appendChild(tile(k,'a'))});
+      st.bank.forEach(function(k){bankEl.appendChild(tile(k,'b'))});
+    }
+    function check(){
+      if(st.bank.length)return;
+      var s=st.ans.map(function(k){return words[k]}).join(' ')+p;
+      if(s===t.en){
+        st.done=true;ansEl.classList.add('done');render();
+        fb.className='fb ok';fb.textContent='✔ '+t.en+(t.why?'  — '+t.why:'');pt();good();confetti(ansEl,16);
+      }else{
+        fb.className='fb bad';fb.textContent='Почти! Проверь порядок слов и форму глагола.';shakeEl(ansEl);bad();
+      }
+    }
+    $('.mini',b0).onclick=function(){if(st.done)return;st.bank=order.slice();st.ans=[];fb.textContent='';fb.className='fb';render()};
+    render();box.body.appendChild(b0);
+  });
+  reg(items.length);
+}
+
+/* ---------- timelines ---------- */
+function timeline(type){
+  var base='<svg viewBox="0 0 320 84" role="img" aria-label="Схема на линии времени">'+
+   '<line class="ln0" x1="10" y1="46" x2="300" y2="46"/><polygon class="ar" points="298,38 314,46 298,54"/>'+
+   '<line class="ln0" x1="170" y1="36" x2="170" y2="56"/><text class="tt" x="170" y="74" text-anchor="middle">NOW</text>'+
+   '<text class="t" x="10" y="74">past</text><text class="t" x="300" y="74" text-anchor="end">future</text>';
+  var s='';
+  if(type==='ps')[45,85,125,215,255].forEach(function(x){s+='<circle class="fl" cx="'+x+'" cy="46" r="6"/>'});
+  if(type==='pc')s='<rect class="bar" x="135" y="34" width="70" height="24" rx="12"/>';
+  if(type==='pas')s='<circle class="fl" cx="80" cy="46" r="9"/>';
+  if(type==='pac')s='<rect class="bar" x="45" y="34" width="95" height="24" rx="12"/><line class="st" x1="95" y1="8" x2="95" y2="34"/><circle class="fl" cx="95" cy="8" r="5"/>';
+  if(type==='fut')s='<circle class="fl" cx="250" cy="46" r="9"/>';
+  if(type==='pp')s='<circle class="fl" cx="80" cy="46" r="9"/><path class="st" d="M84 36 Q125 2 166 36"/><polygon class="fl" points="160,30 170,38 158,40"/>';
+  if(type==='ppc')s='<rect class="bar" x="55" y="34" width="115" height="24" rx="12"/><polygon class="fl" points="168,30 190,46 168,62"/>';
+  return base+s+'</svg>';
+}
+
+/* ===================== helpers (new) ===================== */
+var NAMES=['Present Simple','Present Continuous','Past Simple','Past Continuous','Future Simple','Present Perfect','Present Perfect Continuous'];
+function pickN(ans){return opts(ans,shuffle(NAMES.filter(function(x){return x!==ans})).slice(0,3))}
+function norm(x){
+  x=String(x).toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g,' ').trim().replace(/[.!?,]+$/,'');
+  x=x.replace(/\bwon't\b/g,'will not').replace(/\bcan't\b/g,'cannot').replace(/n't\b/g,' not').replace(/'ll\b/g,' will').replace(/\bi'm\b/g,'i am');
+  return x.replace(/\s+/g,' ').trim();
+}
+function okAns(v,list){var n=norm(v);return list.some(function(a){return norm(a)===n})}
+
+/* typing exercise */
+function typer(box,items){
+  var done=0;
+  items.forEach(function(t,i){
+    var q=document.createElement('div');q.className='tin';
+    q.innerHTML='<div class="qs"><span class="num">'+(i+1)+'</span><span>'+t.q.replace('___',SL)+'</span></div>'+
+      '<div class="trow"><input class="tinp" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Ответ '+(i+1)+'">'+
+      '<button class="mini" type="button" data-a="c">✔</button><button class="mini hintb" type="button" data-a="h" title="Подсказка">💡</button><button class="mini hintb" type="button" data-a="s" title="Показать ответ">👀</button></div>'+
+      '<div class="why" hidden></div>';
+    var inp=$('.tinp',q),why=$('.why',q),solved=false;
+    function finish(shown){
+      solved=true;inp.disabled=true;$$('button',q).forEach(function(b){b.disabled=true});
+      var s=$('.slot',q);s.textContent=t.a[0];s.classList.add('ok');
+      why.hidden=false;why.style.color=shown?'#c96a00':'';why.textContent=(shown?'👀 Ответ: ':'✔ ')+t.a[0]+' — '+(t.why||t.h);
+      done++;if(done===items.length){box.fb.className='fb ok';box.fb.textContent='🎉 Все формы написаны! Great job!';confetti(box.fb,24)}
+    }
+    function check(){
+      if(solved||!inp.value.trim())return;
+      if(okAns(inp.value,t.a)){inp.classList.remove('no');inp.classList.add('ok');pt();good();confetti(inp,8);finish(false)}
+      else{inp.classList.remove('no');void inp.offsetWidth;inp.classList.add('no');bad();why.hidden=false;why.style.color='var(--bad)';why.textContent='✗ Пока не так. Проверь время и форму.'}
+    }
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check()});
+    $('[data-a=c]',q).onclick=check;
+    $('[data-a=h]',q).onclick=function(){why.hidden=false;why.style.color='var(--blue)';why.textContent='💡 Время: '+t.h};
+    $('[data-a=s]',q).onclick=function(){if(solved)return;inp.value=t.a[0];inp.classList.add('shown');finish(true)};
+    box.body.appendChild(q);
+  });
+  reg(items.length);
+}
+
+/* spot the mistake */
+function spot(box,items){
+  var done=0;
+  items.forEach(function(t,i){
+    var w=t.s.split('|');
+    var q=document.createElement('div');q.className='sp';
+    q.innerHTML='<div class="qs"><span class="num">'+(i+1)+'</span><span>Нажми на ошибку</span></div><div class="sw"></div><div class="fix" hidden></div>';
+    var sw=$('.sw',q),solved=false;
+    w.forEach(function(x,k){
+      var b=document.createElement('button');b.type='button';b.className='wb';b.textContent=x;
+      b.onclick=function(){
+        if(solved)return;
+        if(k===t.bad){solved=true;b.classList.add('hit');var f=$('.fix',q);f.hidden=false;f.textContent='✔ '+x+' → '+t.fix+' · '+t.why;pt();good();confetti(b,8);
+          done++;if(done===items.length){box.fb.className='fb ok';box.fb.textContent='🎉 Ты настоящий детектив ошибок!';confetti(box.fb,24)}}
+        else{b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');bad();setTimeout(function(){b.classList.remove('bad')},500)}
+      };
+      sw.appendChild(b);
+    });
+    box.body.appendChild(q);
+  });
+  reg(items.length);
+}
+
+/* ===================== CHEAT SHEET ===================== */
+(function(){
+  var R=[['Present Simple','#ff4f8b','V1 / V-s','always, usually, every day'],
+    ['Present Continuous','#2f8cff','am / is / are + V-ing','now, at the moment, Look!'],
+    ['Past Simple','#ff8a1f','V-ed / V2','yesterday, ago, last week'],
+    ['Past Continuous','#12a99b','was / were + V-ing','at 5 yesterday, while'],
+    ['Future Simple','#7c4dff','will + V1','tomorrow, next week, I think'],
+    ['Present Perfect','#1fb85a','have / has + V3','just, already, yet, ever, since'],
+    ['Present Perfect Continuous','#c026d3','have / has been + V-ing','for, since, all day, how long']];
+  $('#cheatRows').innerHTML=R.map(function(r){return '<tr><td><b style="color:'+r[1]+'">'+r[0]+'</b></td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'}).join('');
+})();
+
+/* ===================== WARM-UP ===================== */
+(function(){
+  var host=$('#warmHost');
+  var a=mkCard(host,'Разминка 1 · Формула → время','Какому времени принадлежит формула?','#7c4dff');
+  function f(x,ans){return {q:'<b>'+x+'</b>',o:pickN(ans),ans:ans,why:x+' → '+ans}}
+  quiz(a,[f('have / has + V3','Present Perfect'),f('was / were + V-ing','Past Continuous'),f('will + V1','Future Simple'),
+    f('have / has been + V-ing','Present Perfect Continuous'),f('am / is / are + V-ing','Present Continuous'),f('did + V1 (в вопросе)','Past Simple'),f('does + V1 (в вопросе)','Present Simple')],'🎉 Формулы помнишь!');
+  var b=mkCard(host,'Разминка 2 · Ситуация → время','Прочитай описание ситуации и выбери время.','#ff4f8b');
+  function s(x,ans,e){return {q:x,e:e,o:pickN(ans),ans:ans,why:ans}}
+  quiz(b,[
+    s('Регулярное действие, привычка','Present Simple'),
+    s('Процесс в конкретный момент прошлого','Past Continuous'),
+    s('Началось в прошлом и продолжается до сих пор (важен процесс)','Present Perfect Continuous'),
+    s('Опыт в жизни: ever, never','Present Perfect'),
+    s('Решение, принятое в момент речи','Future Simple'),
+    s('Законченное действие, названо время в прошлом','Past Simple'),
+    s('Временная ситуация: this week, these days','Present Continuous')
+  ].map(function(x){x.q='🧩 '+x.q;return x}),'🎉 Ситуации различаешь отлично!');
+})();
+
+/* ===================== WRITE ===================== */
+(function(){
+  var host=$('#writeHost');
+  var v=mkCard(host,'Пиши сам 1 · Неправильные глаголы','Напиши нужную форму глагола.','#ff8a1f');
+  function irr(base,form,ans,ru){return {q:'<b>'+base+'</b> ('+ru+') → '+form+': ___',a:[ans],h:form==='V2'?'Past Simple':'Present Perfect',why:base+' – '+form+' – '+ans}}
+  typer(v,[irr('buy','V2','bought','покупать'),irr('teach','V2','taught','учить'),irr('write','V3','written','писать'),irr('be','V3','been','быть'),
+    irr('catch','V2','caught','ловить'),irr('take','V3','taken','брать'),irr('know','V3','known','знать'),irr('think','V2','thought','думать')]);
+
+  var s=mkCard(host,'Пиши сам 2 · Simple','Present · Past · Future Simple','#ff4f8b');
+  typer(s,[
+    {q:'My dad ___ (drive) to work every day.',a:['drives'],h:'Present Simple',why:'every day, he → -s'},
+    {q:'We ___ (not / watch) TV yesterday.',a:["didn't watch",'did not watch'],h:'Past Simple',why:'yesterday → didn’t + V1'},
+    {q:'___ (she / speak) French?',a:['does she speak'],h:'Present Simple',why:'вопрос: Does + she + V1'},
+    {q:'I think they ___ (win) the match tomorrow.',a:['will win'],h:'Future Simple',why:'I think + tomorrow'},
+    {q:'Where ___ (you / go) last summer?',a:['did you go'],h:'Past Simple',why:'last summer → did + V1'},
+    {q:'The shop ___ (open) at 9 a.m. every day.',a:['opens'],h:'Present Simple',why:'расписание'}
+  ]);
+  var c=mkCard(host,'Пиши сам 3 · Continuous','Present · Past Continuous','#2f8cff');
+  typer(c,[
+    {q:'Be quiet! Dad ___ (sleep).',a:['is sleeping'],h:'Present Continuous',why:'Be quiet! → сейчас'},
+    {q:'At 6 p.m. yesterday we ___ (have) dinner.',a:['were having'],h:'Past Continuous',why:'момент в прошлом'},
+    {q:'I ___ (not / wear) a coat today — it’s warm.',a:['am not wearing'],h:'Present Continuous',why:'today → временно'},
+    {q:'What ___ (you / do) when I called you?',a:['were you doing'],h:'Past Continuous',why:'процесс, когда позвонили'},
+    {q:'While Mum ___ (cook), I was laying the table.',a:['was cooking'],h:'Past Continuous',why:'два процесса одновременно → оба в Past Continuous'},
+    {q:'Look! It ___ (snow)!',a:['is snowing'],h:'Present Continuous',why:'Look! → сейчас'}
+  ]);
+  var p=mkCard(host,'Пиши сам 4 · Perfect','Present Perfect · Present Perfect Continuous','#1fb85a');
+  typer(p,[
+    {q:'I ___ (already / finish) my project.',a:['have already finished'],h:'Present Perfect',why:'already стоит между have и V3'},
+    {q:'She ___ (never / be) to Spain.',a:['has never been'],h:'Present Perfect',why:'опыт: has never been'},
+    {q:'___ (you / ever / see) a whale?',a:['have you ever seen'],h:'Present Perfect',why:'Have + you + ever + V3'},
+    {q:'We ___ (wait) for the bus for 20 minutes.',a:['have been waiting'],h:'Present Perfect Continuous',why:'for 20 minutes, процесс'},
+    {q:'He ___ (know) her since 2019.',a:['has known'],h:'Present Perfect',why:'know — глагол состояния, без -ing'},
+    {q:'They ___ (not / do) their homework yet.',a:["haven't done",'have not done'],h:'Present Perfect',why:'yet → haven’t + V3'}
+  ]);
+})();
+
+/* ===================== PAIRS ===================== */
+(function(){
+  var host=$('#pairsHost');
+  var a=mkCard(host,'Пара 1 · Past Simple или Past Continuous?','Процесс (фон) → Past Continuous. Короткое действие или цепочка событий → Past Simple.','#12a99b');
+  quiz(a,[
+    mc('I ___ when the lights went out.','was reading',['read','have read','am reading'],'процесс, который прервали'),
+    mc('While I was walking home, I ___ an old friend.','met',['was meeting','have met','meet'],'короткое действие на фоне процесса'),
+    mc('What were you doing at ten last night? — I ___ a film.','was watching',['watched','have watched','watch'],'конкретный момент → процесс'),
+    mc('He came in, ___ his coat and sat down.','took off',['was taking off','has taken off','takes off'],'цепочка действий → Past Simple'),
+    mc('The sun was shining and the birds ___.','were singing',['sang','have sung','sing'],'описание фона → Past Continuous'),
+    mc('When the bell rang, the students ___ the classroom.','left',['were leaving','have left','leave'],'сначала звонок, потом ушли → Past Simple')
+  ],'🎉 Фон и события различаешь!');
+
+  var b=mkCard(host,'Пара 2 · Present Perfect или Past Simple?','Есть точное время в прошлом (yesterday, ago, in 2020, when?) → Past Simple. Важен результат или опыт → Present Perfect.','#1fb85a');
+  quiz(b,[
+    mc('I ___ this film last week.','saw',['have seen','see','was seeing'],'last week → Past Simple'),
+    mc('I ___ this film three times.','have seen',['saw','see','was seeing'],'опыт, сколько раз → Present Perfect'),
+    mc('___ you ever been to London?','Have',['Did','Were','Are'],'ever → Present Perfect'),
+    mc('When ___ you arrive?','did',['have','were','do'],'When? → Past Simple'),
+    mc('She ___ her keys, so she can’t open the door.','has lost',['lost','loses','was losing'],'результат сейчас'),
+    mc('Pushkin ___ many beautiful poems.','wrote',['has written','writes','was writing'],'автора уже нет → период закончен')
+  ],'🎉 Отличная работа с парой Perfect / Past!');
+
+  var c=mkCard(host,'Пара 3 · Глаголы состояния: Simple или Continuous?','Некоторые глаголы меняют значение: <b>I think</b> (считаю) — <b>I’m thinking</b> (обдумываю); <b>have</b> (иметь) — <b>having</b> (dinner, fun); <b>taste</b> (имеет вкус) — <b>tasting</b> (пробует); <b>see</b> (видеть) — <b>seeing</b> (встречаться).','#7c4dff');
+  quiz(c,[
+    mc('I ___ you are right.','think',['am thinking','thinks','was thinking'],'think = считать, мнение'),
+    mc('Be quiet, please. I ___ about the answer.','am thinking',['think','thinks','have thought'],'думаю, обдумываю → процесс'),
+    mc('We ___ a great time at the party!','are having',['have','has','had had'],'have a good time — действие'),
+    mc('My cousin ___ two dogs.','has',['is having','have','are having'],'have = иметь → Simple'),
+    mc('This soup ___ delicious.','tastes',['is tasting','taste','are tasting'],'имеет вкус → Simple'),
+    mc('Mum ___ the soup to check if it needs salt.','is tasting',['tastes','taste','has tasted'],'пробует → Continuous'),
+    mc('I ___ what you mean.','understand',['am understanding','understands','was understanding'],'understand — только Simple')
+  ],'🎉 Глаголы состояния под контролем!');
+
+  var d=mkCard(host,'Пара 4 · for, since, just, already, yet, ago','for — длительность · since — с какого момента · ago — назад (Past Simple) · yet — в вопросах и отрицаниях','#ff8a1f');
+  quiz(d,[
+    mc('I’ve lived here ___ 2015.','since',['for','ago','yet'],'since + момент'),
+    mc('I’ve lived here ___ ten years.','for',['since','ago','already'],'for + период'),
+    mc('Have you done your homework ___?','yet',['already','since','ago'],'yet — в конце вопроса'),
+    mc('Shh! The baby has ___ fallen asleep.','just',['yet','ago','since'],'just — только что'),
+    mc('I saw him two days ___.','ago',['for','since','yet'],'ago + Past Simple'),
+    mc('We haven’t met ___ last summer.','since',['for','ago','yet'],'since + момент в прошлом')
+  ],'🎉 Маркеры времени — без ошибок!');
+})();
+
+/* ===================== ERRORS ===================== */
+(function(){
+  var host=$('#errHost');
+  var a=mkCard(host,'Ошибки 1 · Найди ошибку','В каждом предложении одна ошибка. Нажми на неё.','#ff4f8b');
+  spot(a,[
+    {s:"She|don't|like|coffee.",bad:1,fix:"doesn't",why:'she → doesn’t'},
+    {s:'I|have seen|him|yesterday.',bad:1,fix:'saw',why:'yesterday → Past Simple'},
+    {s:'Listen!|Somebody|sings|in|the|garden.',bad:2,fix:'is singing',why:'Listen! → Present Continuous'},
+    {s:'I|am knowing|the|answer.',bad:1,fix:'know',why:'know — глагол состояния'},
+    {s:'We|have lived|here|since|five years.',bad:3,fix:'for',why:'five years — период → for'},
+    {s:'While|I|walked|home,|it|started|to rain.',bad:2,fix:'was walking',why:'while → процесс'},
+    {s:'Did|you|went|to|the party?',bad:2,fix:'go',why:'did + V1'},
+    {s:'If|it|will rain,|we|will stay|at home.',bad:2,fix:'rains',why:'после if — Present Simple'},
+    {s:'How long|are you|waiting|for|the bus?',bad:1,fix:'have you been',why:'How long → Perfect Continuous'},
+    {s:'They|has|already|finished.',bad:1,fix:'have',why:'they → have'}
+  ]);
+
+  var b=mkCard(host,'Ошибки 2 · Ловушки перевода','Выбери правильный перевод. В русском здесь другое время, чем в английском!','#2f8cff');
+  function tr(ru,ans,wrong,why){return {q:'🇷🇺 '+ru,o:opts(ans,wrong),ans:ans,why:why}}
+  quiz(b,[
+    tr('Я живу здесь с 2015 года.','I have lived here since 2015.',['I live here since 2015.','I am living here since 2015.'],'с какого-то момента до сих пор → Present Perfect'),
+    tr('Я жду тебя уже целый час!','I have been waiting for you for an hour!',['I am waiting for you for an hour!','I wait for you for an hour!'],'процесс + for an hour → Perfect Continuous'),
+    tr('Когда ты пришёл?','When did you come?',['When have you come?','When were you coming?'],'When? → Past Simple'),
+    tr('Если пойдёт дождь, мы останемся дома.','If it rains, we will stay at home.',['If it will rain, we will stay at home.','If it rains, we stay at home tomorrow.'],'после if — Present Simple'),
+    tr('Я думаю, он прав.','I think he is right.',['I am thinking he is right.','I think he is being right.'],'think = считать → Simple'),
+    tr('Он уже ушёл.','He has already left.',['He already leaves.','He is already leaving.'],'результат → Present Perfect'),
+    tr('Что ты делал вчера в 5 часов?','What were you doing at 5 o’clock yesterday?',['What have you done at 5 o’clock yesterday?','What do you do at 5 o’clock yesterday?'],'процесс в момент прошлого')
+  ],'🎉 Ловушки перевода больше не страшны!');
+
+  var c=mkCard(host,'Ошибки 3 · Задай вопрос','Собери вопрос по заданию. Нажимай на слова по порядку.','#12a99b');
+  builder(c,[
+    {ru:'Спроси, как долго Анна учит французский.',en:'How long has Ann been learning French?'},
+    {ru:'Спроси, где был Том вчера.',en:'Where was Tom yesterday?'},
+    {ru:'Спроси, что дети делают сейчас.',en:'What are the children doing now?'},
+    {ru:'Спроси, видел ли он когда-нибудь слона.',en:'Has he ever seen an elephant?'},
+    {ru:'Спроси, во сколько начинается урок.',en:'What time does the lesson start?'}
+  ]);
+})();
+
+/* ===================== TEXT ===================== */
+(function(){
+  var host=$('#textHost');
+  var box=mkCard(host,'Письмо из лагеря · Open the brackets','Впиши глаголы в нужном времени и нажми «Проверить». Зелёные — верно, красные — исправь и проверь снова.','#1fb85a');
+  var G=[
+    ['write',['am writing']],['be',['have been']],['love',['love']],['get up',['get up']],['go',['go']],['climb',['climbed']],
+    ['walk',['were walking']],['start',['started']],['already / make',['have already made']],['play',['has been playing']],
+    ['practise',['is practising','is practicing']],['win',['will win']]];
+  function g(n){return '<input class="gi" data-n="'+n+'" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Пропуск '+(n+1)+'"> <span class="bv">('+(n+1)+' · '+G[n][0]+')</span>'}
+  var st=document.createElement('div');st.className='story';
+  st.innerHTML='Dear Mum and Dad,<br>I '+g(0)+' to you from the summer camp. I '+g(1)+' here for a week now and I '+g(2)+' it! '+
+   'Every morning we '+g(3)+' at seven and '+g(4)+' swimming in the lake. Yesterday we '+g(5)+' a mountain. '+
+   'While we '+g(6)+' down, it '+g(7)+' to rain, so we got very wet! I '+g(8)+' lots of friends. '+
+   'My new friend Pete '+g(9)+' the guitar for two hours now — he '+g(10)+' for the camp concert. I think we '+g(11)+' the competition!<br>See you soon,<br>Max';
+  box.card.insertBefore(st,box.body);
+  var ctr=document.createElement('div');ctr.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin-top:10px';
+  ctr.innerHTML='<button class="mini" type="button" id="chkText">✔ Проверить</button><button class="mini alt" type="button" id="showText">👀 Показать ответы</button>';
+  box.body.appendChild(ctr);
+  var got={};reg(G.length);
+  $('#chkText').onclick=function(){
+    var okN=0,any=false;
+    $$('.gi',st).forEach(function(inp){
+      var n=+inp.dataset.n;if(!inp.value.trim()){inp.classList.remove('ok','no');return}
+      any=true;
+      if(okAns(inp.value,G[n][1])){inp.classList.add('ok');inp.classList.remove('no');okN++;if(!got[n]){got[n]=1;pt()}}
+      else{inp.classList.add('no');inp.classList.remove('ok')}
+    });
+    var all=Object.keys(got).length;
+    if(!any)return;
+    if(all===G.length){box.fb.className='fb ok';box.fb.textContent='🎉 Письмо готово без ошибок! Прочитай его вслух.';good();confetti(box.fb,30)}
+    else{box.fb.className='fb bad';box.fb.textContent='Верно: '+all+' из '+G.length+'. Исправь красные пропуски.';bad()}
+  };
+  $('#showText').onclick=function(){
+    $$('.gi',st).forEach(function(inp){var n=+inp.dataset.n;if(!inp.classList.contains('ok')){inp.value=G[n][1][0];inp.classList.remove('no');inp.style.borderColor='var(--orange)'}});
+    box.fb.className='fb';box.fb.textContent='👀 Ответы показаны (баллы за них не начисляются).';
+  };
+})();
+
+/* ===================== BLITZ ===================== */
+(function(){
+  var host=$('#blitzHost');
+  var card=document.createElement('div');card.className='card stripe-orange blitz';
+  card.innerHTML='<div class="clock" id="bClock">0.0 c</div><div class="bcount" id="bCount">Нажми «Старт», когда будешь готов</div>'+
+    '<div class="bq" id="bQ"></div><div class="bopts" id="bOpts"></div><div class="fb" id="bFb" aria-live="polite"></div>'+
+    '<button class="big" type="button" id="bStart" style="margin-top:12px">⚡ Старт!</button>';
+  host.appendChild(card);
+  var POOL=[
+    ['She ___ to music every evening.','listens',['is listening','listened']],
+    ['Look! The cat ___ the fish!','is eating',['eats','ate']],
+    ['We ___ Paris in 2019.','visited',['have visited','visit']],
+    ['I ___ my keys. Can you help me?','have lost',['lost','lose']],
+    ['They ___ tennis at 4 p.m. yesterday.','were playing',['played','are playing']],
+    ['I’m tired. I ___ since 7 a.m.','have been working',['work','am working']],
+    ['I think it ___ tomorrow.','will snow',['snows','is snowing']],
+    ['He ___ never late.','is',['does','has']],
+    ['___ you finished yet?','Have',['Did','Are']],
+    ['When ___ she leave?','did',['has','is']],
+    ['I ___ him for ages.','have known',['know','am knowing']],
+    ['If you ___ hard, you will pass.','work',['will work','worked']],
+    ['While she was sleeping, the phone ___.','rang',['was ringing','rings']],
+    ['The train ___ at 6:15 every morning.','leaves',['is leaving','left']],
+    ['How long ___ you been learning English?','have',['are','did']],
+    ['My brother ___ a new phone last week.','bought',['has bought','buys']],
+    ['This cake ___ wonderful!','smells',['is smelling','smell']],
+    ['We ___ dinner now. Call me later.','are having',['have','had']]
+  ];
+  var run=0,qs=[],i=0,err=0,t0=0,tick=null,counted=false,best=null;
+  try{best=parseFloat(localStorage.getItem('tt2_best'))||null}catch(e){}
+  reg(12);
+  function show(){
+    if(i>=qs.length){return end()}
+    var q=qs[i];$('#bCount').textContent='Вопрос '+(i+1)+' из '+qs.length+' · ошибок: '+err;
+    $('#bQ').innerHTML=q[0].replace('___',SL);
+    var ob=$('#bOpts');ob.innerHTML='';
+    opts(q[1],q[2]).forEach(function(x,k){var b=document.createElement('button');b.type='button';b.className='opt qo qo'+k;b.textContent=x;
+      b.onclick=function(){if(x===q[1]){good();if(!counted)pt();i++;show()}else{bad();err++;b.classList.add('wrong');b.disabled=true;$('#bCount').textContent='Вопрос '+(i+1)+' из '+qs.length+' · ошибок: '+err}};ob.appendChild(b)});
+  }
+  function end(){
+    clearInterval(tick);var t=(performance.now()-t0)/1000;$('#bClock').textContent=t.toFixed(1)+' c';
+    var fine=t+err*3;counted=true;
+    var rec='';if(!best||fine<best){best=fine;rec=' 🏅 Новый рекорд!';try{localStorage.setItem('tt2_best',String(fine))}catch(e){}}
+    $('#bQ').textContent='';$('#bOpts').innerHTML='';
+    $('#bCount').textContent='Время: '+t.toFixed(1)+' c · ошибок: '+err+' (+3 c за каждую) · итог: '+fine.toFixed(1)+' c';
+    $('#bFb').className='fb ok';$('#bFb').textContent=(fine<60?'⚡ Быстрее минуты! Супер!':'👍 Хорошо! Попробуй ещё раз быстрее.')+rec+(best?' Лучший результат: '+best.toFixed(1)+' c':'');
+    confetti($('#bClock'),30);win();
+    $('#bStart').hidden=false;$('#bStart').textContent='🔁 Ещё раз (на время)';
+  }
+  $('#bStart').onclick=function(){
+    qs=shuffle(POOL).slice(0,12);i=0;err=0;run++;$('#bFb').textContent='';this.hidden=true;
+    t0=performance.now();clearInterval(tick);tick=setInterval(function(){$('#bClock').textContent=((performance.now()-t0)/1000).toFixed(1)+' c'},100);
+    show();
+  };
+})();
+
+renderScore();
+})();
+</script>
+</body>
+</html>
